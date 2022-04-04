@@ -1,0 +1,50 @@
+// SPDX-License_Identifier: MIT
+pragma solidity 0.4.26;
+
+contract Calculator {
+    uint256 result;
+    string public _add;
+     
+    function add (uint256 x , uint256 y ) public {
+       result = x + y;
+    }
+    function subtract (uint256 x , uint256 y ) public {
+       result = x - y;
+    }
+    function multiply (uint256 x , uint256 y ) public {
+       result = x * y;
+    }
+    function divide (uint256 x , uint256 y ) public {
+       require(y!=0, " Division by zero is not possible ");
+       result = x / y;
+       }
+    function Int2Str(uint256 _i) internal returns (string , _uint256AsString) {
+        if ( _i == 0 ) {
+            return "0";
+        }
+        
+        uint256 j = _i;
+        uint256 len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory _add = new bytes(len);
+        uint256 k = len;
+        while (_i != 0) {
+            k = k-1;
+            int temp = (48 + int8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            _add[k] = b1;
+            _i /= 10;
+        }
+        return string(_add);
+    
+    }
+    function store(string memory _add ) internal {
+        _add=add;   
+    }
+    function get() public view returns(string memory _add){
+        return _add;
+    }
+}
